@@ -33,6 +33,9 @@ class Game:
             return True
 
     def print_round_result(self, winner, player_score, computer_score):
+        if player_score < 0 or computer_score < 0:
+            raise ValueError("Player and computer score must be >= 0")
+
         if winner == 'player':
             message = "You win!"
         elif winner == 'computer':
@@ -41,9 +44,6 @@ class Game:
             message = "Tie!"
         else:
             raise ValueError("Argument 'winner' is not valid")
-
-        if player_score < 0 or computer_score < 0:
-            raise ValueError("Player and computer score must be >= 0")
 
         print("%s Score: Player = %s, Computer = %s\n" % (message,
                                                           player_score,
@@ -59,19 +59,19 @@ class Game:
         computer_choice = computer_input
         if player_choice == 'q':
             return -999
-        if ((player_choice == 'r' and computer_choice == 's')
+        elif ((player_choice == 'r' and computer_choice == 's')
                 or (player_choice == 's' and computer_choice == 'p')
                 or (player_choice == 'p' and computer_choice == 'r')):
+            # Player wins
             return 1
         elif player_choice == computer_choice:
+            # Tie
             return 0
         else:
+            # Computer wins
             return -1
 
     def game_controller(self, result):
-        """
-        Controls
-        """
         if result == 1:
             # Player wins
             self.increment_score('player')
