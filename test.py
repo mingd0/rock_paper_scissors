@@ -82,6 +82,10 @@ class TestGame(unittest.TestCase):
         self.assertEqual(gm.get_score('player'), 2)
         self.assertEqual(gm.get_score('computer'), 1)
 
+    def test_end_game(self):
+        gm = Game()
+        self.assertRaises(SystemExit, gm.end_game)
+
 
 if __name__ == '__main__':
     unittest.main()
